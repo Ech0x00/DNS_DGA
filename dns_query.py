@@ -61,16 +61,16 @@ def main():
 	p.add_argument('--retries', type=int, default=0, help='Number of retries on failure')
 	p.add_argument('--type', dest='rtype', default='A', choices=['A', 'AAAA', 'CNAME', 'TXT'], help='Record type to query')
 	p.add_argument('--nameserver', default=None, help='Optional DNS nameserver (IP) to use')
+	# require explicit domain file to avoid hidden hardcoded defaults
+	p.add_argument('-f', '--file', dest='file', required=True, help='Path to newline-separated domain file')
 	args = p.parse_args()
 
-	# load domains from domains.txt located next to this script
-	import os
-	script_dir = os.path.dirname(__file__)
-	domains_file = os.path.join(script_dir, 'domains.txt')
+	# require explicit domain file path
+	domains_file = args.file
 	try:
 		domains = load_domains_from_file(domains_file)
 	except FileNotFoundError:
-		print(f'No domain file found at {domains_file}.')
+		print(f'No domain file found at {domains_file}. Provide a valid -f/--file path.')
 		sys.exit(1)
 	if not domains:
 		print('No domains found in the script after __DATA__ marker.')
