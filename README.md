@@ -18,6 +18,7 @@ cd DNS_DGA
 python simple_dyre_dga.py > domains.txt
 
 ## Query domains with resolver
-python dns_query.py -f domains.txt
+python dns_query.py -f domains.txt --timeout 3 --retries 1 --type A
+
 
 
