@@ -15,7 +15,7 @@ git clone https://github.com/Ech0x00/DNS_DGA.git
 cd DNS_DGA
 
 ### Generate DGA domains
-python simple_dyre_dga.py > domains.txt
+python simple_dga.py --days 1 --output domains.txt
 
 ## Query domains with resolver
 python dns_query.py -f domains.txt --timeout 3 --retries 1 --type A
